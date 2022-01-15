@@ -1,0 +1,18 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: control
+  namespace: travel-control
+  labels:
+    kiali_wizard: request_routing
+spec:
+  hosts:
+    - travel-control.apps.cluster-8750.sandbox1807.opentlc.com
+  gateways:
+    - travel-control/control-gateway
+  http:
+    - route:
+        - destination:
+            host: control.travel-control.svc.cluster.local
+            subset: v1
+          weight: 100
